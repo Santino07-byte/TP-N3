@@ -1,0 +1,52 @@
+/* --- Estilos Generales --- */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.volver {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* --- Estilos del Index (Menú de navegación) --- */
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu-nav a {
+    display: block;
+    padding: 15px;
+    background: white;
+    color: #3498db;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.menu-nav a:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+}
