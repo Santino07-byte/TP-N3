@@ -63,6 +63,7 @@ function renderTablaPersonas() {
             <td>${persona.altura} m</td>
             <td>${persona.peso} kg</td>
             <td><strong>${imc}</strong></td>
+            <td><button class="btn-borrar" data-index="${index}">Quitar</button></td>
         `;
         tbody.appendChild(fila);
     });
@@ -86,4 +87,11 @@ if (formulario) {
         formulario.reset();
     });
 
+    tbody.addEventListener("click", (event) => {
+    if (event.target.classList.contains("btn-borrar")) {
+        const index = event.target.getAttribute("data-index");
+        listaPersonas.splice(index, 1); // <--- Borra la persona del arreglo
+        renderTablaPersonas(); // <--- Vuelve a dibujar la tabla actualizada
+    }
+    });
 }
