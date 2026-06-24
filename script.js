@@ -42,3 +42,48 @@ if (contenedor) {
         renderizarFlexbox(productos);
     });
 }
+
+// --- EJERCICIO 2 ---
+const listaPersonas = [];
+const formulario = document.getElementById("formPersona");
+const tbody = document.getElementById("tablaBody");
+
+function renderTablaPersonas() {
+    if (!tbody) return; 
+    tbody.innerHTML = "";
+    
+    listaPersonas.forEach((persona, index) => {
+        const fila = document.createElement("tr");
+        const imc = (persona.peso / (persona.altura * persona.altura)).toFixed(2);
+
+        fila.innerHTML = `
+            <td>${persona.nombre}</td>
+            <td>${persona.apellido}</td>
+            <td>${persona.edad}</td>
+            <td>${persona.altura} m</td>
+            <td>${persona.peso} kg</td>
+            <td><strong>${imc}</strong></td>
+        `;
+        tbody.appendChild(fila);
+    });
+}
+
+if (formulario) {
+    formulario.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const datos = new FormData(formulario);
+        
+        const nuevaPersona = {
+            nombre: datos.get("nombre").trim(),
+            apellido: datos.get("apellido").trim(),
+            edad: parseInt(datos.get("edad")),
+            altura: parseFloat(datos.get("altura")),
+            peso: parseFloat(datos.get("peso"))
+        };
+
+        listaPersonas.push(nuevaPersona);
+        renderTablaPersonas();
+        formulario.reset();
+    });
+
+}
