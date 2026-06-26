@@ -13,5 +13,97 @@
 <body>
     <a class="volver" href="index.html">← Volver al Inicio</a>
     <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [personas, setPersonas] = useState([]);
+            const [form, setForm] = useState({ nombre: '', apellido: '', edad: '', altura: '', peso: '' });
+
+            const handleChange = (e) => {
+                const { name, value } = e.target;
+                setForm((prev) => ({ ...prev, [name]: value }));
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                const nuevaPersona = {
+                    id: Date.now(),
+                    nombre: form.nombre.trim(),
+                    apellido: form.apellido.trim(),
+                    edad: parseInt(form.edad),
+                    altura: parseFloat(form.altura),
+                    peso: parseFloat(form.peso)
+                };
+                setPersonas((previas) => [...previas, nuevaPersona]);
+                setForm({ nombre: '', apellido: '', edad: '', altura: '', peso: '' });
+            };
+
+            const eliminarPersona = (id) => {
+                setPersonas((previas) => previas.filter(p => p.id !== id));
+            };
+
+            return (
+                <div>
+                    <h1>Registro de Personas (React Component)</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="campo">
+                            <label>Nombre:</label>
+                            <input type="text" name="nombre" value={form.nombre} onChange={handleChange} required />
+                        </div>
+                        <div className="campo">
+                            <label>Apellido:</label>
+                            <input type="text" name="apellido" value={form.apellido} onChange={handleChange} required />
+                        </div>
+                        <div className="campo">
+                            <label>Edad:</label>
+                            <input type="number" name="edad" value={form.edad} onChange={handleChange} required />
+                        </div>
+                        <div className="campo">
+                            <label>Altura (metros):</label>
+                            <input type="number" step="0.01" name="altura" value={form.altura} onChange={handleChange} required />
+                        </div>
+                        <div className="campo">
+                            <label>Peso (kg):</label>
+                            <input type="number" step="0.1" name="peso" value={form.peso} onChange={handleChange} required />
+                        </div>
+                        <button type="submit" className="btn-react">Agregar</button>
+                    </form>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th><th>Apellido</th><th>Edad</th><th>Altura</th><th>Peso</th><th>IMC</th><th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {personas.map((p) => {
+                                const imc = (p.peso / (p.altura * p.altura)).toFixed(2);
+                                return (
+                                    <tr key={p.id}>
+                                        <td>{p.nombre}</td>
+                                        <td>{p.apellido}</td>
+                                        <td>{p.edad}</td>
+                                        <td>{p.altura} m</td>
+                                        <td>{p.peso} kg</td>
+                                        <td><strong>{imc}</strong></td>
+                                        <td>
+                                            <button className="btn-borrar" onClick={() => eliminarPersona(p.id)}>
+                                                Quitar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
 </body>
 </html>
