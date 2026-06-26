@@ -90,8 +90,8 @@ if (formulario) {
     tbody.addEventListener("click", (event) => {
     if (event.target.classList.contains("btn-borrar")) {
         const index = event.target.getAttribute("data-index");
-        listaPersonas.splice(index, 1); // <--- Borra la persona del arreglo
-        renderTablaPersonas(); // <--- Vuelve a dibujar la tabla actualizada
+        listaPersonas.splice(index, 1); 
+        renderTablaPersonas(); 
     }
     });
 }
